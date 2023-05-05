@@ -20,7 +20,7 @@ public class ImageController {
     @Autowired
     AccountProfileRepository accountProfileRepository;
 
-    @GetMapping("{name}/{surname}")
+    @GetMapping("/{name}/{surname}")
     public ResponseEntity<String> getHttpImageLink(@PathVariable String name, @PathVariable String surname) {
 
         AccountProfile profile = accountProfileRepository.findByAccountHolderNameAndAccountHolderSurname(name, surname)
