@@ -22,10 +22,6 @@ public class FileParserImpl implements FileParser {
     @Autowired
     AccountProfileRepository accountProfileRepository;
 
-    public FileParserImpl(AccountProfileRepository accountProfileRepository) {
-        this.accountProfileRepository = accountProfileRepository;
-    }
-
     @Override
     public void parseCSV(File csvFile) throws IOException {
 

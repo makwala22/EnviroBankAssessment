@@ -1,5 +1,6 @@
 package com.enviro.assessment.grd001.EdwinMakwala.controller;
 
+import com.enviro.assessment.grd001.EdwinMakwala.Exception.ProfileDoesNotExistException;
 import com.enviro.assessment.grd001.EdwinMakwala.entity.AccountProfile;
 import com.enviro.assessment.grd001.EdwinMakwala.repository.AccountProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,9 @@ public class ImageController {
     @GetMapping("{name}/{surname}")
     public ResponseEntity<String> getHttpImageLink(@PathVariable String name, @PathVariable String surname) {
 
-        AccountProfile profile = accountProfileRepository.findByAccountHolderNameAndAccountHolderSurname(name, surname);
+        AccountProfile profile = accountProfileRepository.findByAccountHolderNameAndAccountHolderSurname(name, surname)
+                        .orElseThrow(()->
+                        new ProfileDoesNotExistException("Account profile: " + name + ", " + surname + " does not exist"));
 
         String imageLink = profile.getHttpImageLink().substring(6);
         FileSystemResource resource = new FileSystemResource(imageLink);
